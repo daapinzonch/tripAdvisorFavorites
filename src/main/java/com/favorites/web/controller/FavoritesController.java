@@ -2,6 +2,7 @@ package com.favorites.web.controller;
 
 import com.favorites.web.entity.Favorites;
 import com.favorites.web.service.FavoritesService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,11 +24,13 @@ public class FavoritesController {
         return "CLIENTS AVAILABLE";
     }
 
+    @ApiOperation(value = "Gets all the favorites from a client by id." , response = List.class)
     @GetMapping("/{id}")
     public ResponseEntity<List<Favorites>> getAllFavorites(@PathVariable(value = "id") String clientId){
         return ResponseEntity.ok(favoritesService.getAllFavorites(clientId));
     }
 
+    @ApiOperation(value = "Creates a new favorite." )
     @PostMapping(path ="/", consumes = "application/json")
     public ResponseEntity<Long> createClient(@RequestBody Favorites favorites) {
             Favorites cli = favoritesService.getFavorite(favorites.getId());
@@ -39,6 +42,7 @@ public class FavoritesController {
             }
     }
 
+    @ApiOperation(value = "Deletes a favorite is a change of state by Id.")
     @DeleteMapping(path ="/{id}")
     public ResponseEntity<Long> deleteFavorite(@PathVariable(value = "id") long FavoriteId) {
         Favorites cli = favoritesService.getFavorite(FavoriteId);
