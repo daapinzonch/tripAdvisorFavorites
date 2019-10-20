@@ -16,7 +16,7 @@ public class FavoritesService {
 
     public List<Favorites> getAllFavorites(String clientId){ return favoritesRepository.findAllByClientId(clientId); }
 
-    public Favorites getFavorite(long favoriteId){ return favoritesRepository.findFirstById(favoriteId); }
+    public Favorites getFavorite(String favoriteId){ return favoritesRepository.findFirstById(favoriteId); }
 
     public Favorites createFavorite(Favorites newFavorites){
         return favoritesRepository.save(newFavorites);
@@ -24,8 +24,6 @@ public class FavoritesService {
 
     public void deleteFavorite(Favorites dlFavorites){
         favoritesRepository.delete(dlFavorites);
-        dlFavorites.setStateFavorite(false);
-        favoritesRepository.save(dlFavorites);
     }
 
 

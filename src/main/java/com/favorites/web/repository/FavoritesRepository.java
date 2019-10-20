@@ -11,6 +11,6 @@ import java.util.List;
 public interface FavoritesRepository extends MongoRepository<Favorites, Serializable> {
 
     List<Favorites> findAllByClientId(String clientId);
-    Favorites findFirstById(long favoriteId);
+    Favorites findFirstById(String favoriteId);
 
 }

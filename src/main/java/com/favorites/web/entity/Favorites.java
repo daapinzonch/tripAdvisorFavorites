@@ -7,9 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 
 @Document(collection = "Favorites")
 @Data
@@ -18,13 +16,13 @@ import java.util.Date;
 public class Favorites implements Serializable {
     @Id
     @NotNull
-    private long id;
+    private String id;
 
     @NotBlank
     private String clientId;
 
     @NotBlank
-    private String providerId;
+    private String postId;
 
     private String updateDate;
 
@@ -34,19 +32,19 @@ public class Favorites implements Serializable {
     public Favorites() {
     }
 
-    public Favorites(long id, @NotBlank String clientId, @NotBlank String providerId, String updateDate, boolean stateFavorite) {
+    public Favorites(String id, @NotBlank String clientId, @NotBlank String providerId, String updateDate, boolean stateFavorite) {
         this.id = id;
         this.clientId = clientId;
-        this.providerId = providerId;
+        this.postId = providerId;
         this.updateDate = updateDate;
         this.stateFavorite = stateFavorite;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -58,12 +56,12 @@ public class Favorites implements Serializable {
         this.clientId = clientId;
     }
 
-    public String getProviderId() {
-        return providerId;
+    public String getPostId() {
+        return postId;
     }
 
-    public void setProviderId(String providerId) {
-        this.providerId = providerId;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     public String getUpdateDate() {

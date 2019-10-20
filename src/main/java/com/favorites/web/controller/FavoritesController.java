@@ -14,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/favorites")
+@CrossOrigin(origins = "*")
 public class FavoritesController {
 
     @Autowired
@@ -30,13 +31,13 @@ public class FavoritesController {
         return ResponseEntity.ok(favoritesService.getAllFavorites(clientId));
     }
 
-    @ApiOperation(value = "Creates a new favorite." )
+    @ApiOperation(value = "Creates a new favorite.")
     @PostMapping(path ="/", consumes = "application/json")
-    public ResponseEntity<Long> createClient(@RequestBody Favorites favorites) {
+    public ResponseEntity<String> createClient(@RequestBody Favorites favorites) {
             Favorites cli = favoritesService.getFavorite(favorites.getId());
             if (cli==null){
-                favoritesService.createFavorite(favorites);
-                return new ResponseEntity<>(HttpStatus.CREATED);
+                Favorites created = favoritesService.createFavorite(favorites);
+                return new ResponseEntity<>(created.getId(),HttpStatus.CREATED);
             }else{
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }
@@ -44,13 +45,13 @@ public class FavoritesController {
 
     @ApiOperation(value = "Deletes a favorite is a change of state by Id.")
     @DeleteMapping(path ="/{id}")
-    public ResponseEntity<Long> deleteFavorite(@PathVariable(value = "id") long FavoriteId) {
+    public ResponseEntity<String> deleteFavorite(@PathVariable(value = "id") String FavoriteId) {
         Favorites cli = favoritesService.getFavorite(FavoriteId);
         if (cli!=null){
             favoritesService.deleteFavorite(cli);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }else{
-            return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
